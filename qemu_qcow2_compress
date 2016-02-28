@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -eu
+
+if [ "$#" != '1' -o ! -f "$1" ]; then
+	echo "Usage:"
+	echo "  $0 <disk.qcow2>"
+	exit 1
+fi
+
+sudo qemu-img convert -c -f qcow2 -O qcow2 "$1" "$1.compressed"
+sudo mv -f "$1.compressed" "$1"
